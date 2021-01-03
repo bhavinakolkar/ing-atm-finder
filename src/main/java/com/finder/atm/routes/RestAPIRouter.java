@@ -32,7 +32,7 @@ public class RestAPIRouter extends RouteBuilder {
             Take care of invalid json and unmarshal it to List<ATMDetail>
         */
         from("timer:Timer?repeatCount=1")
-                .setBody(simple("${null}"))
+                .setBody(simple("${null}")).routeId("process-atm-details-timer")
                 .to(ingATMLocatorURL + "?httpMethod=GET")
                 .process((exchange) -> {
                     String body = exchange.getIn().getBody(String.class);
